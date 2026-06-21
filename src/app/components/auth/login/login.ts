@@ -1,75 +1,49 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
-import { LoginInterface } from 'src/app/models/login-interface';
-import { form, required, FormField } from '@angular/forms/signals';
+import { LoginInterface} from 'src/app/models/login-interface';
+import { form, required, FormField, submit, email } from '@angular/forms/signals';
 import { LoginService } from 'src/app/services/login-service';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [RouterLink, FormField],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 
 export class Login {
-  loginModel = signal<LoginInterface>({
-    email: '',
-    password: ''
-  })
- showPassword = signal(false);
+  private loginService = inject(LoginService);
+  private router = inject(Router);
 
-  togglePassword() {
+ showPassword = signal(false);
+ loginError= signal<string| null >(null);
+
+ loginModel = signal<LoginInterface> ({email: '', password:''})
+ 
+ loginForm = form(this.loginModel, (path) => {
+    required(path.email, { message: 'El email es requerido' });
+    email(path.email, { message: 'Email inválido' });
+    required(path.password, { message: 'La contraseña es requerida' });
+  });
+  
+ togglePassword() {
     this.showPassword.update(value => !value);
   }
   
-
-  loginForm = form(this.loginModel, (schemaPath) => {
-    required(schemaPath.email, { message: 'El correo es requerido' });
-    required(schemaPath.password, { message: 'la contraseña es requerida' });
-  })
-
-  constructor(private loginService: LoginService, private router: Router) {
-
-  }
- 
-
-
-  ///////////////////////
-  login() {
-  this.loginService.login(this.loginModel()).subscribe({
-    next: () => {
-      // El rol ya fue guardado en el tap() del servicio
-      const role = localStorage.getItem('role');
-
-      if (role === 'admin') {
-        this.router.navigate(['burritoadministrador/dash']);
-      } else {
-        this.router.navigate(['/burritolector/galeria']);
+login() {
+    this.loginError.set(null);
+    submit(this.loginForm, async () => {
+      try {
+        await firstValueFrom(this.loginService.login(this.loginModel()));
+        const role = this.loginService.recuperarRol();
+        this.router.navigate([role === 'admin' ? '/admin' : '/galeria']);
+      } catch (err) {
+        this.loginError.set('Credenciales inválidas o error de servidor');
       }
-    },
-    error: (err) => {
-      console.error('Error:', err);
-      alert('Correo o contraseña incorrectos');
-    }
-  });
+    });
+  }
 }
-  //////////////////////
-  // login() {
-  //   this.loginService.login(this.loginModel()).subscribe({
-  //     next: (response: any) => {
-  //       // Ya no hace falta guardarToken aquí, el servicio ya lo hizo
 
-  //       if (response.user.role === 'admin') {
-  //         this.router.navigate(['/burritoadministrador/dash']);
-  //       } else {
-  //         this.router.navigate(['/burritolector/galeria']);
-  //       }
-  //     },
-  //     error: (err) => {
-  //       console.error('El verdadero error interno es:', err);
-  //       alert('Ocurrió un error');
-  //     }
-  //   });
-  // }
-}
