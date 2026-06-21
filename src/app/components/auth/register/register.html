@@ -46,7 +46,9 @@
                                     <label for="password">Contraseña</label>
                                     <div class="position-relative">
                                        <input type="password" class="form-control" [formField]="registerForm.password" id="password" placeholder="Contraseña">
-                                       <div class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></div>
+                                       <div class="text-lighten fs-15 field-icon toggle-password2 uil"
+                                          [class.uil-eye-slash]="!showPassword()" [class.uil-eye]="showPassword()"
+                                          (click)="togglePassword()" style="cursor: pointer;"></div>
                                     </div>
                                     @if (registerForm.password().touched() && registerForm.password().invalid()) {
                                        <div class="text-danger mt-1 fs-12">

@@ -21,7 +21,7 @@
                         <div class="edit-profile__body">
                            <div class="form-group mb-25">
                               <label for="email">Correo Electrónico</label>
-                              <input type="text" class="form-control" type="text" [formField]="loginForm.email"
+                              <input type="text" class="form-control" [formField]="loginForm.email"
                                  id="email" placeholder="tunombre@ejemplo.com">
                               @if(loginForm.email().touched() && loginForm.email().invalid()){
                               @for (error of loginForm.email().errors(); track $index) {
@@ -58,6 +58,9 @@
                            </div>
                            <div
                               class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
+                              @if (loginError()) {
+                                 <div class="text-danger mb-2">{{ loginError() }}</div>
+                              }
                               <button
                                  class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn "
                                  type="button" (click)="login()">
