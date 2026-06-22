@@ -1,16 +1,22 @@
-<div class="contents">
+<div class="contents expanded">
    <div class="container-fluid">
       <div class="row">
          <div class="col-lg-12">
             <div class="breadcrumb-main">
-               <h4 class="text-capitalize breadcrumb-title">Detalle del libro</h4>
+               <h4 class="text-capitalize breadcrumb-title">
+                  Reseña de Libro: {{ libro()?.title }}
+               </h4>
                <div class="breadcrumb-action justify-content-center flex-wrap">
                   <nav aria-label="breadcrumb">
                      <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                           <a routerLink="/burritolector/galeria"><i class="uil uil-estate"></i>Galería</a>
+                           <a routerLink="/burritolector/galeria">
+                              <i class="uil uil-estate"></i>Galería
+                           </a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ libro()?.title }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                           {{ libro()?.title }}
+                        </li>
                      </ol>
                   </nav>
                </div>
@@ -19,90 +25,104 @@
       </div>
 
       @if (loading()) {
-         <p>Cargando libro...</p>
+         <div class="row justify-content-center mt-50">
+            <p class="text-center">Cargando libro...</p>
+         </div>
       } @else if (error()) {
-         <p class="text-danger">{{ error() }}</p>
+         <div class="row justify-content-center mt-50">
+            <p class="text-danger text-center">{{ error() }}</p>
+         </div>
       } @else if (libro()) {
-         <div class="products mb-30">
-            <div class="card product-details h-100 border-0">
-               <div class="product-item d-flex p-sm-50 p-20">
-                  <div class="row">
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="card border-0 mb-25">
+                  <div class="card-body p-sm-50 p-30">
+                     <div class="row">
 
-                     <!-- Portada -->
-                     <div class="col-lg-5">
-                        <div class="product-item__image">
-                           <img class="img-fluid d-flex bg-opacity-primary"
-                                [src]="libro()!.coverImageUrl || 'img/blog-single1.png'"
-                                [alt]="libro()!.title">
-                        </div>
-                     </div>
-
-                     <!-- Info -->
-                     <div class="col-lg-7">
-                        <div class="b-normal-b mb-25 pb-sm-35 pb-15 mt-lg-0 mt-15">
-                           <div class="product-item__body">
-                              <div class="product-item__title">
-                                 <h1 class="card-title">{{ libro()!.title }}</h1>
-                              </div>
-
-                              <div class="product-item__content text-capitalize">
-
-                                 <!-- Calificación de la comunidad -->
-                                 @if (libro()!.communityScore) {
-                                    <div class="stars-rating d-flex align-items-center">
-                                       <span class="star-icon las la-star active"></span>
-                                       <span class="stars-rating__point">{{ libro()!.communityScore }}</span>
-                                       <span class="stars-rating__review">Calificación de la comunidad</span>
-                                    </div>
-                                 }
-
-                                 <span class="product-details-brandName">Autor:<span>{{ libro()!.author || 'Desconocido' }}</span></span>
-                                 @if (libro()!.editor) {
-                                    <span class="product-details-brandName">Editorial:<span>{{ libro()!.editor }}</span></span>
-                                 }
-
-                                 <p class="product-deatils-pera">{{ libro()!.synopsis || 'Sin sinopsis disponible.' }}</p>
-
-                                 @if (libro()!.adminScore) {
-                                    <div class="product-details__availability">
-                                       <div class="title">
-                                          <p>Calificación editorial:</p>
-                                          <span class="stock">{{ libro()!.adminScore }}/10</span>
-                                       </div>
-                                    </div>
-                                 }
-
-                                 @if (libro()!.genres && libro()!.genres!.length) {
-                                    <div class="product-details__availability">
-                                       <div class="title">
-                                          <p>Géneros:</p>
-                                          <span class="free">
-                                             @for (genero of libro()!.genres; track genero.id) {
-                                                {{ genero.name }}@if (!$last) {, }
-                                             }
-                                          </span>
-                                       </div>
-                                    </div>
-                                 }
-
-                                 <div class="product-item__button mt-lg-30 mt-sm-25 mt-20 d-flex flex-wrap">
-                                    <div class="d-flex flex-wrap product-item__action align-items-center">
-                                       <button class="btn btn-primary btn-default btn-squared border-0 me-10 my-sm-0 my-2"
-                                               routerLink="/burritolector/galeria">
-                                          Volver a la galería
-                                       </button>
-                                    </div>
-                                 </div>
-
-                              </div>
+                        <!-- Portada -->
+                        <div class="col-lg-3 col-md-4 col-sm-5 mb-sm-0 mb-25">
+                           <div class="product-item__image text-center">
+                              <img class="img-fluid rounded"
+                                   [src]="libro()!.coverImageUrl || 'img/blog-single1.png'"
+                                   [alt]="libro()!.title"
+                                   style="max-height: 350px; object-fit: cover; width: 100%;">
                            </div>
                         </div>
+
+                        <!-- Info -->
+                        <div class="col-lg-9 col-md-8 col-sm-7">
+                           <h4 class="fw-600 mb-15">{{ libro()!.title }}</h4>
+
+                           <table class="table table-borderless mb-20" style="max-width: 500px;">
+                              <tbody>
+                                 <tr>
+                                    <td class="fw-500 ps-0" style="width: 120px;">Autor:</td>
+                                    <td>{{ libro()!.author || 'Desconocido' }}</td>
+                                 </tr>
+                                 @if (libro()!.editor) {
+                                    <tr>
+                                       <td class="fw-500 ps-0">Editor:</td>
+                                       <td>{{ libro()!.editor }}</td>
+                                    </tr>
+                                 }
+                                 @if (libro()!.genres && libro()!.genres!.length) {
+                                    <tr>
+                                       <td class="fw-500 ps-0">Género(s):</td>
+                                       <td>
+                                          @for (genero of libro()!.genres; track genero.id) {
+                                             {{ genero.name }}@if (!$last) {, }
+                                          }
+                                       </td>
+                                    </tr>
+                                 }
+                              </tbody>
+                           </table>
+
+                           <!-- Puntuación comunidad con estrellas -->
+                           <div class="mb-15">
+                              <p class="fw-500 mb-5">Mi puntuación</p>
+                              <div class="d-flex align-items-center gap-1">
+                                 @for (star of [1,2,3,4,5]; track star) {
+                                    <span class="fs-20"
+                                          [style.color]="star <= (libro()!.communityScore || 0) ? '#f4bc22' : '#d0d0d0'">
+                                       ★
+                                    </span>
+                                 }
+                                 <span class="ms-2 text-muted fs-13">({{ libro()!.communityScore || 0 }}/5)</span>
+                              </div>
+                           </div>
+
+                           @if (libro()!.adminScore) {
+                              <div class="mb-20">
+                                 <span class="badge badge-primary">
+                                    Puntuación editorial: {{ libro()!.adminScore }}/10
+                                 </span>
+                              </div>
+                           }
+
+                           <button class="btn btn-primary btn-default btn-squared border-0"
+                                   routerLink="/burritolector/galeria">
+                              Volver a la galería
+                           </button>
+                        </div>
+
                      </div>
+
+                     <!-- Sinopsis -->
+                     @if (libro()!.synopsis) {
+                        <div class="row mt-30">
+                           <div class="col-12">
+                              <h6 class="fw-600 mb-10">Sinopsis</h6>
+                              <p class="text-muted lh-30">{{ libro()!.synopsis }}</p>
+                           </div>
+                        </div>
+                     }
 
                   </div>
                </div>
             </div>
          </div>
       }
+
    </div>
 </div>

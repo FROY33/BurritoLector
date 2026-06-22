@@ -38,6 +38,8 @@ export class LibrosService {
     
   }
   findOne(id: number): Observable<Libro> {
-    return this.http.get<Libro>(`${environment.apiUrl}/books/${id}`);
-}
+    return this.http
+      .get<ApiWrapper<Libro>>(`${environment.apiUrl}/books/${id}`)
+      .pipe(map(res => res.data));
+  }
 }
