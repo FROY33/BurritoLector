@@ -18,12 +18,15 @@ export class BurritoLayout {
   }
 
   toggleSidebar() {
-    const body = document.body;
-    // La plantilla HexaDash usa la clase 'collapsed' en el body
-    if (body.classList.contains('collapsed')) {
-      this.renderer.removeClass(body, 'collapsed');
-    } else {
-      this.renderer.addClass(body, 'collapsed');
+    const side = document.getElementById('sidebar_body');
+    const side_cont = document.getElementById('sidebar_content');
+
+    if(side?.classList.contains('collapsed')){
+      side?.classList.remove('collapsed');
+      side_cont?.classList.remove('expanded');
+    }else{
+      side?.classList.add('collapsed');
+      side_cont?.classList.add('expanded');
     }
   }
 }
