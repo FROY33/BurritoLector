@@ -13,6 +13,9 @@ import { authGuardGuard } from './guards/auth-guard-guard';
 import { BurritoLayout } from './layout/burrito-layout/burrito-layout';
 import { BurritoAdminLayout } from './layout/burrito-admin-layout/burrito-admin-layout';
 import { Recursos } from './components/pages/recursos/recursos';
+import { RecursosAgregar } from './components/pages/recursos-agregar/recursos-agregar';
+import { RecursosEditar } from './components/pages/recursos-editar/recursos-editar';
+import { RecursosEliminar } from './components/pages/recursos-eliminar/recursos-eliminar';
 
 
 
@@ -76,7 +79,21 @@ export const routes: Routes = [
             {
                 path: 'recursos',
                 component: Recursos
-            }
+            },
+            { 
+                path: 'recursos/agregar', 
+                component: RecursosAgregar 
+            },
+        
+            { 
+                path: 'recursos/editar/:id',
+                component: RecursosEditar 
+
+            },
+            { 
+                path: 'recursos/eliminar/:id', 
+                component: RecursosEliminar 
+            },
         ]
     },
 

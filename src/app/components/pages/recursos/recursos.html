@@ -1,73 +1,63 @@
 <div class="contents expanded">
-
-         <div class="container-fluid">
-            <div class="row">
-               <div class="col-lg-12">
-
-                  <div class="breadcrumb-main">
-                     <h4 class="text-capitalize breadcrumb-title">Libros</h4>
-                     <div class="breadcrumb-action justify-content-center flex-wrap">
-                        <nav aria-label="breadcrumb">
-                           <ol class="breadcrumb">
-                              <li class="button"><a href="#"><i class="uil uil-estate"></i>Añadir Nuevo</a></li>
-                           </ol>
-                        </nav>
-                     </div>
-                  </div>
-
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-12">
-
-                  <div class="card">
-                     
-                     <div class="card-body p-0">
-                        <div class="table4 p-25 mb-30">
-                           <div class="table-responsive">
-                              <table class="table mb-0">
-                                 <thead>
-                                    <tr class="userDatatable-header">
-                                       <th>
-                                          <span class="userDatatable-title">Titulo</span>
-                                       </th>
-                                       <th>
-                                          <span class="userDatatable-title">Autor</span>
-                                       </th>
-                                       <th>
-                                          <span class="userDatatable-title">Acciones</span>
-                                       </th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-
-                                    <tr>
-                                       <td>
-                                          <div class="userDatatable-content">
-                                             Mike
-                                          </div>
-                                       </td>
-                                       <td>
-                                          <div class="userDatatable-content">
-                                             32
-                                          </div>
-                                       </td>
-                                       <td>
-                                          <div class="userDatatable-content">
-                                             10 Downing Street
-                                          </div>
-                                       </td>
-                                    </tr>
-
-
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-
-               </div>
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="breadcrumb-main">
+               <h4 class="text-capitalize breadcrumb-title">Libros</h4>
+               <div class="breadcrumb-action justify-content-center flex-wrap">
+                  <button class="btn btn-success btn-sm"
+                          routerLink="/burritoadministrador/recursos/agregar">
+                     Agregar
+                  </button>
                </div>
             </div>
          </div>
+      </div>
+
+      <div class="row">
+         <div class="col-12">
+            <div class="card">
+               <div class="card-body p-0">
+                  <div class="table4 p-25 mb-30">
+                     <div class="table-responsive">
+                        <table class="table mb-0">
+                           <thead>
+                              <tr class="userDatatable-header">
+                                 <th><span class="userDatatable-title">Título</span></th>
+                                 <th><span class="userDatatable-title">Autor</span></th>
+                                 <th><span class="userDatatable-title">Acciones</span></th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              @if (loading()) {
+                                 <tr><td colspan="3">Cargando libros...</td></tr>
+                              } @else {
+                                 @for (libro of libros(); track libro.id) {
+                                    <tr>
+                                       <td><div class="userDatatable-content">{{ libro.title }}</div></td>
+                                       <td><div class="userDatatable-content">{{ libro.author }}</div></td>
+                                       <td>
+                                          <div class="userDatatable-content d-flex gap-2">
+                                             <button class="btn btn-primary btn-sm"
+                                                     [routerLink]="['/burritoadministrador/recursos/editar', libro.id]">
+                                                Editar
+                                             </button>
+                                             <button class="btn btn-danger btn-sm"
+                                                     [routerLink]="['/burritoadministrador/recursos/eliminar', libro.id]">
+                                                Eliminar
+                                             </button>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                 }
+                              }
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
