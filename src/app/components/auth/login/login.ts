@@ -43,7 +43,7 @@ login() {
         role === 'admin' ? '/burritoadministrador/dash' : '/burritolector/galeria'
       ]);
     } catch (err) {
-      this.loginError.set('Credenciales inválidas o error de servidor');
+      this.loginError.set('Credenciales inválidas');
     }
   });
   }
