@@ -4,16 +4,22 @@ import { HttpClient } from '@angular/common/http';
 import { LoginInterface } from '../models/login-interface';
 
 
+// export interface LoginResponse {
+//   access_token: string;
+//   user: {
+//     id: string;
+//     email: string;
+//     role: 'admin' | 'user';
+//   };
+// }
+
 export interface LoginResponse {
-  access_token: string;
-  user: {
-    id: string;
-    email: string;
-    role: 'admin' | 'user';
+  success: boolean;
+  data: {
+    token: string;
   };
+  statusCode: number;
 }
-
-
 
 @Injectable({
   providedIn: 'root',
@@ -21,10 +27,9 @@ export interface LoginResponse {
 export class LoginService {
   constructor(private http: HttpClient) { }
   URL = 'https://api-burritolector.onrender.com/auth/login';
-////////////////////////
+
 private decodeToken(token: string): any {
   try {
-    // El payload es la segunda parte del JWT (base64)
     const payload = token.split('.')[1];
     return JSON.parse(atob(payload));
   } catch {
@@ -32,13 +37,14 @@ private decodeToken(token: string): any {
   }
 }
 
-login(credentials: LoginInterface): Observable<any> {
-  return this.http.post<any>(this.URL, credentials).pipe(
+login(credentials: LoginInterface): Observable<LoginResponse> {
+  return this.http.post<LoginResponse>(this.URL, credentials).pipe(
     tap(response => {
       // El backend devuelve { token }, no { access_token }
-      const token = response.token;
+      const token = response.data.token;
       const decoded = this.decodeToken(token);
       const role = decoded?.role ?? 'user';
+      console.log(response)
 
       this.guardarToken(token, role);
     })

@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Libro } from '../models/libro-model';
 
@@ -12,11 +12,18 @@ interface PaginatedResponse<T> {
   lastPage: number;
 }
 
+interface ApiWrapper<T> {
+  success: boolean;
+  data: T;
+  statusCode?: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class LibrosService {
   private http = inject(HttpClient);
+  private apiUrl = 'https://api-burritolector.onrender.com/';
 
   findAll(params: { page?: number; limit?: number; search?: string; genre?: number }): Observable<PaginatedResponse<Libro>> {
     let httpParams = new HttpParams();
@@ -25,10 +32,9 @@ export class LibrosService {
     if (params.search) httpParams = httpParams.set('search', params.search);
     if (params.genre)  httpParams = httpParams.set('genre', params.genre);
 
-    return this.http.get<PaginatedResponse<Libro>>(`${environment.apiUrl}/books`, { params: httpParams });
-  }
-
-  findOne(id: number): Observable<Libro> {
-    return this.http.get<Libro>(`${environment.apiUrl}/books/${id}`);
+    return this.http
+    .get<ApiWrapper<PaginatedResponse<Libro>>>(`${environment.apiUrl}/books`, { params: httpParams })
+      .pipe(map(res => res.data));
+    
   }
 }
