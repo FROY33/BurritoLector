@@ -34,10 +34,7 @@ export const routes: Routes = [
         component: Forgot
     },
 
-    {
-        path: 'profile',
-        component: Profile
-    },
+    
 
     // Rutas para el rol LECTOR / USUARIO
     {
@@ -55,6 +52,10 @@ export const routes: Routes = [
             {
                 path: 'afinidad',
                 component: Afinidad
+            },
+            {
+                path: 'profile',
+                component: Profile
             }
         ]
     },

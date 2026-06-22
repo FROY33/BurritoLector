@@ -1,6 +1,5 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { Libro } from 'src/app/models/libro-model';
 import { LibrosService } from 'src/app/services/libros-service';
 

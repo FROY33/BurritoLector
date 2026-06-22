@@ -37,4 +37,9 @@ export class LibrosService {
       .pipe(map(res => res.data));
     
   }
+  findOne(id: number): Observable<Libro> {
+    return this.http
+      .get<ApiWrapper<Libro>>(`${environment.apiUrl}/books/${id}`)
+      .pipe(map(res => res.data));
+  }
 }
