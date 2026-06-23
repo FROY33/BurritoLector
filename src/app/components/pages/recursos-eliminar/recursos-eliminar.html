@@ -1,1 +1,105 @@
-<p>recursos-eliminar works!</p>
+<div class="contents expanded">
+  <div class="container-fluid">
+
+    <!-- Encabezado -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcrumb-main">
+          <h2 class="breadcrumb-title fw-bold text-capitalize mb-3">Eliminar Libro</h2>
+          <div class="breadcrumb-action justify-content-center flex-wrap">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a routerLink="/burritoadministrador/dash">
+                    <i class="uil uil-estate"></i> Dashboard
+                  </a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a routerLink="/burritoadministrador/recursos">Libros</a>
+                </li>
+                <li class="breadcrumb-item active">Eliminar</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alerta de error -->
+    <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ errorMessage }}
+      <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+    </div>
+
+    <!-- Contenido -->
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card card-default">
+
+          <div class="card-header">
+            <h4 class="mb-0">Confirmar eliminación</h4>
+          </div>
+
+          <div class="card-body py-4">
+
+            <!-- Cargando -->
+            <div *ngIf="isLoading" class="text-center py-4">
+              <div class="spinner-border text-primary" role="status"></div>
+              <p class="mt-2">Cargando libro...</p>
+            </div>
+
+            <!-- Datos del libro -->
+            <div *ngIf="!isLoading && libro">
+
+              <div class="d-flex gap-4 mb-4">
+
+                <!-- Imagen -->
+                <img
+                  [src]="libro.coverImageUrl || 'https://placehold.co/120x160?text=Sin+imagen'"
+                  alt="Portada"
+                  style="width: 120px; height: 160px; object-fit: cover;"
+                  class="rounded border">
+
+                <!-- Info -->
+                <div>
+                  <h5 class="fw-bold mb-1">{{ libro.title }}</h5>
+                  <p class="mb-1 text-muted"><strong>Autor:</strong> {{ libro.author }}</p>
+                  <p class="mb-1 text-muted"><strong>Editorial:</strong> {{ libro.editor }}</p>
+                  <p class="mb-0 text-muted"><strong>Puntuación:</strong> {{ libro.adminScore }}</p>
+                </div>
+
+              </div>
+
+              <div class="alert alert-warning">
+                <i class="uil uil-exclamation-triangle me-2"></i>
+                Esta acción es permanente y no se puede deshacer.
+              </div>
+
+              <div class="d-flex gap-3">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-default btn-squared px-4"
+                  [disabled]="isDeleting"
+                  (click)="onEliminar()">
+                  <span *ngIf="isDeleting">Eliminando...</span>
+                  <span *ngIf="!isDeleting">Sí, eliminar</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary btn-default btn-squared px-4"
+                  [disabled]="isDeleting"
+                  (click)="onCancelar()">
+                  Cancelar
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

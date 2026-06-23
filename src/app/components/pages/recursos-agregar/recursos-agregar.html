@@ -1,200 +1,205 @@
 <div class="contents expanded">
+  <div class="container-fluid">
 
-    <div class="container-fluid">
-
-        <!-- Encabezado -->
-        <div class="row">
-            <div class="col-lg-12">
-
-                <div class="breadcrumb-main">
-                    <h2 class="breadcrumb-title fw-bold text-capitalize mb-3">
-                        Agregar Libros
-                    </h2>
-
-                    <div class="breadcrumb-action justify-content-center flex-wrap">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a routerLink="/burritoadministrador/dash">
-                                        <i class="uil uil-estate"></i>
-                                        Dashboard
-                                    </a>
-                                </li>
-
-                                <li class="breadcrumb-item active">
-                                    Agregar Libro
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-
-            </div>
+    <!-- Encabezado -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcrumb-main">
+          <h2 class="breadcrumb-title fw-bold text-capitalize mb-3">Agregar Libros</h2>
+          <div class="breadcrumb-action justify-content-center flex-wrap">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a routerLink="/burritoadministrador/dash">
+                    <i class="uil uil-estate"></i> Dashboard
+                  </a>
+                </li>
+                <li class="breadcrumb-item active">Agregar Libro</li>
+              </ol>
+            </nav>
+          </div>
         </div>
-
-        <!-- Formulario -->
-        <div class="row">
-
-            <div class="col-lg-12">
-
-                <div class="card card-default card-md">
-
-                    <div class="card-header">
-                        <h4 class="mb-0">
-                            Información del Libro
-                        </h4>
-                    </div>
-
-                    <div class="card-body py-4">
-
-                        <div class="row">
-
-                            <!-- COLUMNA IZQUIERDA -->
-                            <div class="col-lg-6">
-
-                                <!-- Título -->
-                                <div class="form-group mb-4">
-                                    <label class="form-label fw-bold">
-                                        Título
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        class="form-control ih-medium ip-lightradius-xs b-light"
-                                        placeholder="Ingrese el título del libro">
-                                </div>
-
-                                <!-- Editorial -->
-                                <div class="form-group mb-4">
-                                    <label class="form-label fw-bold">
-                                        Editorial
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        class="form-control ih-medium ip-lightradius-xs b-light"
-                                        placeholder="Ingrese la editorial">
-                                </div>
-
-                                <!-- Sinopsis -->
-                                <div class="form-group mb-4">
-                                    <label class="form-label fw-bold">
-                                        Sinopsis
-                                    </label>
-
-                                    <textarea
-                                        class="form-control b-light"
-                                        rows="8"
-                                        placeholder="Ingrese la sinopsis del libro">
-                                    </textarea>
-                                </div>
-
-                                <!-- Botones -->
-                                <div class="d-flex gap-3">
-
-                                    <button
-                                        type="button"
-                                        class="btn btn-primary btn-default btn-squared px-4">
-
-                                        Agregar
-                                    </button>
-
-                                    <button
-                                        type="button"
-                                        class="btn btn-outline-secondary btn-default btn-squared px-4">
-
-                                        Cancelar
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                            <!-- COLUMNA DERECHA -->
-                            <div class="col-lg-6">
-
-                                <!-- Autores -->
-                                <div class="form-group mb-4">
-                                    <label class="form-label fw-bold">
-                                        Autor(es)
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        class="form-control ih-medium ip-lightradius-xs b-light"
-                                        placeholder="Ingrese el autor o autores">
-                                </div>
-
-                                <!-- Género -->
-                                <div class="form-group mb-4">
-                                    <label class="form-label fw-bold">
-                                        Género
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        class="form-control ih-medium ip-lightradius-xs b-light"
-                                        placeholder="Ingrese el género">
-                                </div>
-
-                                <!-- Vista previa de imagen -->
-                                <div class="form-group mb-4">
-
-                                    <label class="form-label fw-bold">
-                                        Imagen del libro
-                                    </label>
-
-                                    <div
-                                        class="border rounded d-flex justify-content-center align-items-center"
-                                        style="height: 250px;">
-
-                                        <img
-                                            src="assets/img/libro-placeholder.png"
-                                            alt="Vista previa"
-                                            class="img-fluid"
-                                            style="max-height: 230px;">
-
-                                    </div>
-
-                                </div>
-
-                                <!-- Ruta de imagen -->
-                                <div class="form-group">
-
-                                    <label class="form-label fw-bold">
-                                        Dirección de la imagen
-                                    </label>
-
-                                    <div class="input-group">
-
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Seleccione una imagen">
-
-                                        <button
-                                            class="btn btn-primary"
-                                            type="button">
-
-                                            Elegir imagen
-                                        </button>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
+      </div>
     </div>
 
+    <!-- Alerta de error global -->
+    <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ errorMessage }}
+      <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+    </div>
+
+    <!-- Formulario -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card card-default card-md">
+
+          <div class="card-header">
+            <h4 class="mb-0">Información del Libro</h4>
+          </div>
+
+          <div class="card-body py-4">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+              <div class="row">
+
+                <!-- COLUMNA IZQUIERDA -->
+                <div class="col-lg-6">
+
+                  <!-- Título -->
+                  <div class="form-group mb-4">
+                    <label class="form-label fw-bold">Título <span class="text-danger">*</span></label>
+                    <input
+                      type="text"
+                      formControlName="title"
+                      class="form-control ih-medium ip-lightradius-xs b-light"
+                      [class.is-invalid]="title.invalid && title.touched"
+                      placeholder="Ingrese el título del libro">
+                    <div class="invalid-feedback">
+                      <span *ngIf="title.errors?.['required']">El título es obligatorio.</span>
+                      <span *ngIf="title.errors?.['minlength']">Mínimo 2 caracteres.</span>
+                      <span *ngIf="title.errors?.['maxlength']">Máximo 200 caracteres.</span>
+                    </div>
+                  </div>
+
+                  <!-- Editorial -->
+                  <div class="form-group mb-4">
+                    <label class="form-label fw-bold">Editorial <span class="text-danger">*</span></label>
+                    <input
+                      type="text"
+                      formControlName="editor"
+                      class="form-control ih-medium ip-lightradius-xs b-light"
+                      [class.is-invalid]="editor.invalid && editor.touched"
+                      placeholder="Ingrese la editorial">
+                    <div class="invalid-feedback">
+                      <span *ngIf="editor.errors?.['required']">La editorial es obligatoria.</span>
+                      <span *ngIf="editor.errors?.['maxlength']">Máximo 100 caracteres.</span>
+                    </div>
+                  </div>
+
+                  <!-- Sinopsis -->
+                  <div class="form-group mb-4">
+                    <label class="form-label fw-bold">Sinopsis <span class="text-danger">*</span></label>
+                    <textarea
+                      formControlName="synopsis"
+                      class="form-control b-light"
+                      [class.is-invalid]="synopsis.invalid && synopsis.touched"
+                      rows="8"
+                      placeholder="Ingrese la sinopsis del libro">
+                    </textarea>
+                    <div class="invalid-feedback">
+                      <span *ngIf="synopsis.errors?.['required']">La sinopsis es obligatoria.</span>
+                      <span *ngIf="synopsis.errors?.['maxlength']">Máximo 2000 caracteres.</span>
+                    </div>
+                  </div>
+
+                  <!-- Botones -->
+                  <div class="d-flex gap-3">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-default btn-squared px-4"
+                      [disabled]="isSubmitting">
+                      <span *ngIf="isSubmitting">Guardando...</span>
+                      <span *ngIf="!isSubmitting">Agregar</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary btn-default btn-squared px-4"
+                      routerLink="/burritoadministrador/libros"
+                      [disabled]="isSubmitting">
+                      Cancelar
+                    </button>
+                  </div>
+
+                </div>
+
+                <!-- COLUMNA DERECHA -->
+                <div class="col-lg-6">
+
+                  <!-- Autor(es) -->
+                  <div class="form-group mb-4">
+                    <label class="form-label fw-bold">Autor(es) <span class="text-danger">*</span></label>
+                    <input
+                      type="text"
+                      formControlName="author"
+                      class="form-control ih-medium ip-lightradius-xs b-light"
+                      [class.is-invalid]="author.invalid && author.touched"
+                      placeholder="Ingrese el autor o autores">
+                    <div class="invalid-feedback">
+                      <span *ngIf="author.errors?.['required']">El autor es obligatorio.</span>
+                      <span *ngIf="author.errors?.['maxlength']">Máximo 200 caracteres.</span>
+                    </div>
+                  </div>
+
+                  <!-- Puntuación -->
+                  <div class="form-group mb-4">
+                    <label class="form-label fw-bold">Puntuación <span class="text-danger">*</span></label>
+                    <select
+                      formControlName="adminScore"
+                      class="form-select ih-medium ip-lightradius-xs b-light"
+                      [class.is-invalid]="adminScore.invalid && adminScore.touched">
+                      <option value="">Seleccione una puntuación</option>
+                      <option value="1">1 — Muy malo</option>
+                      <option value="2">2 — Malo</option>
+                      <option value="3">3 — Regular</option>
+                      <option value="4">4 — Bueno</option>
+                      <option value="5">5 — Excelente</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      <span *ngIf="adminScore.errors?.['required']">La puntuación es obligatoria.</span>
+                    </div>
+                  </div>
+
+                  <!-- Vista previa -->
+                  <div class="form-group mb-4">
+                    <label class="form-label fw-bold">Imagen del libro</label>
+                    <div
+                      class="border rounded d-flex justify-content-center align-items-center"
+                      style="height: 250px; background: #f8f9fa;">
+                      <img
+                        [src]="previewUrl"
+                        alt="Vista previa"
+                        class="img-fluid"
+                        style="max-height: 230px; object-fit: contain;">
+                    </div>
+                  </div>
+
+                  <!-- Selector de imagen -->
+                  <div class="form-group">
+                    <label class="form-label fw-bold">Imagen de portada</label>
+
+                    <input
+                      #fileInput
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      class="d-none"
+                      (change)="onFileSelected($event)">
+
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [value]="selectedFile?.name ?? ''"
+                        placeholder="Selecciona un archivo"
+                        readonly>
+                      <button
+                        class="btn btn-primary"
+                        type="button"
+                        (click)="triggerFilePicker(fileInput)">
+                        Elegir imagen
+                      </button>
+                    </div>
+
+                    <small class="text-muted">JPG, PNG o WEBP · máx. 5 MB (opcional).</small>
+                  </div>
+
+                </div>
+
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>

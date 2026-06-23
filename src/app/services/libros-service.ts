@@ -42,4 +42,22 @@ export class LibrosService {
       .get<ApiWrapper<Libro>>(`${environment.apiUrl}/books/${id}`)
       .pipe(map(res => res.data));
   }
+
+  update(id: number, formData: FormData): Observable<Libro> {
+    return this.http
+      .patch<ApiWrapper<Libro>>(`${environment.apiUrl}/books/${id}`, formData)
+      .pipe(map(res => res.data));
+  }
+
+  create(formData: FormData): Observable<Libro> {
+  return this.http
+    .post<ApiWrapper<Libro>>(`${environment.apiUrl}/books`, formData)
+    .pipe(map(res => res.data));
+  }
+
+  remove(id: number): Observable<Libro> {
+    return this.http
+      .delete<ApiWrapper<Libro>>(`${environment.apiUrl}/books/${id}`)
+      .pipe(map(res => res.data));
+  }
 }
