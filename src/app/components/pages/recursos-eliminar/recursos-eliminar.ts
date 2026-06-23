@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { LibrosService } from './../../../services/libros-service';
@@ -15,6 +15,7 @@ export class RecursosEliminar implements OnInit {
   private service = inject(LibrosService);
   private router  = inject(Router);
   private route   = inject(ActivatedRoute);
+  private cdr     = inject(ChangeDetectorRef);
 
   isLoading    = true;
   isDeleting   = false;
@@ -24,14 +25,20 @@ export class RecursosEliminar implements OnInit {
 
   ngOnInit(): void {
     this.libroId = Number(this.route.snapshot.paramMap.get('id'));
+    console.log('libroId:', this.libroId);
+    
     this.service.findOne(this.libroId).subscribe({
       next: (libro) => {
+        console.log('libro cargado:', libro);
         this.libro    = libro;
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
-      error: () => {
+      error: (err) => {
+        console.log('error:', err);
         this.errorMessage = 'Error al cargar el libro.';
         this.isLoading    = false;
+        this.cdr.detectChanges();
       },
     });
   }

@@ -15,6 +15,7 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   if (esPublica) return next(req);
 
   const token = loginService.recuperarToken();
+  
   if (!token) return next(req);
 
   const cloneReq = req.clone({
