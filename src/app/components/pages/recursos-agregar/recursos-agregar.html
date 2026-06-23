@@ -152,37 +152,34 @@
                                         <div class="border rounded d-flex justify-content-center align-items-center"
                                             style="height: 250px; background: #f8f9fa;">
                                             <img [src]="previewUrl" alt="Vista previa" class="img-fluid"
-                                                style="max-height: 230px; object-fit: contain;">
+                                                style="max-height: 230px; object-fit: contain;"
+                                                (error)="onImageError($event)">
                                         </div>
                                     </div>
-
-                                    <!-- Selector de imagen -->
+ 
+                                    <!-- URL de imagen -->
                                     <div class="form-group">
-                                        <label class="form-label fw-bold">Imagen de portada</label>
-
-                                        <input #fileInput type="file" accept="image/jpeg,image/png,image/webp"
-                                            class="d-none" (change)="onFileSelected($event)">
-
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" [value]="selectedFile?.name ?? ''"
-                                                placeholder="Selecciona un archivo" readonly>
-                                            <button class="btn btn-primary" type="button"
-                                                (click)="triggerFilePicker(fileInput)">
-                                                Elegir imagen
-                                            </button>
+                                        <label class="form-label fw-bold">URL de la imagen</label>
+                                        <input type="url" formControlName="coverImage"
+                                            class="form-control ih-medium ip-lightradius-xs b-light"
+                                            [class.is-invalid]="coverImage.invalid && coverImage.touched"
+                                            placeholder="https://ejemplo.com/portada.jpg"
+                                            (input)="onUrlChange($event)">
+                                        <div class="invalid-feedback">
+                                            <span *ngIf="coverImage.errors?.['pattern']">Ingrese una URL válida.</span>
                                         </div>
-
-                                        <small class="text-muted">JPG, PNG o WEBP · máx. 5 MB (opcional).</small>
+                                        <small class="text-muted">Opcional. La imagen se previsualiza al ingresar la URL.</small>
                                     </div>
-
+ 
                                 </div>
-
+ 
                             </div>
                         </form>
                     </div>
-
+ 
                 </div>
             </div>
         </div>
     </div>
 </div>
+ 
