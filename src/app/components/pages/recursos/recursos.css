@@ -1,0 +1,8 @@
+.btn-primary, .btn-danger {
+    padding-inline: 15px;
+    padding-block: 0px;
+}
+
+.breadcrumb-item a:hover {
+  color: #8231D3 !important; 
+}

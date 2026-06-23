@@ -2,13 +2,20 @@
    <div class="container-fluid">
       <div class="row">
          <div class="col-lg-12">
+
             <div class="breadcrumb-main">
                <h4 class="text-capitalize breadcrumb-title">Libros</h4>
+
                <div class="breadcrumb-action justify-content-center flex-wrap">
-                  <button class="btn btn-success btn-sm"
-                          routerLink="/burritoadministrador/recursos/agregar">
-                     Agregar
-                  </button>
+                  <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                           <li class="breadcrumb-item">
+                              <a style="cursor: pointer;" routerLink="/burritoadministrador/recursos">
+                                    <i class="uil uil-estate"></i>Libros
+                              </a>
+                           </li>
+                        </ol>
+                  </nav>
                </div>
             </div>
          </div>
@@ -18,7 +25,8 @@
          <div class="col-12">
             <div class="card">
                <div class="card-body p-0">
-                  <div class="table4 p-25 mb-30">
+                  <div class="table4 p-25 mb-10">
+
                      <div class="table-responsive">
                         <table class="table mb-0">
                            <thead>
@@ -42,8 +50,7 @@
                                                      [routerLink]="['/burritoadministrador/recursos/editar', libro.id]">
                                                 Editar
                                              </button>
-                                             <button class="btn btn-danger btn-sm"
-                                                     [routerLink]="['/burritoadministrador/recursos/eliminar', libro.id]">
+                                             <button type="button" class="btn btn-outline-secondary btn-default btn-squared px-4" [routerLink]="['/burritoadministrador/recursos/eliminar', libro.id]">
                                                 Eliminar
                                              </button>
                                           </div>
@@ -54,7 +61,11 @@
                            </tbody>
                         </table>
                      </div>
+
                   </div>
+                  <button class="btn btn-primary btn-sm" style="margin-bottom: 25px; margin-left: 25px;" routerLink="/burritoadministrador/recursos/agregar">
+                     Agregar
+                  </button>
                </div>
             </div>
          </div>
