@@ -104,8 +104,4 @@ export class RecursosEditar implements OnInit, OnDestroy {
        },
      });
    }
-
-  ngOnDestroy(): void {
-    if (this.objectUrl) URL.revokeObjectURL(this.objectUrl);
-  }
 }
