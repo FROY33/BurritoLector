@@ -1,0 +1,13 @@
+.breadcrumb-item a:hover {
+  color: #8231D3 !important; 
+}
+
+/* Quita el contenido del separador */
+.breadcrumb-item + .breadcrumb-item::before {
+    content: none !important;
+}
+
+/* Opcional: Ajusta el espacio que deja el separador eliminado */
+.breadcrumb-item + .breadcrumb-item {
+    padding-left: 0.5rem; 
+}
